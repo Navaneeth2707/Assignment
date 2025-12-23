@@ -131,6 +131,21 @@ app.post("/api/articles/replace-all", (req, res) => {
     });
   });
 });
+// DELETE ALL articles
+app.delete("/api/articles", (req, res) => {
+  console.log("Deleting all articles");
+
+  db.run("DELETE FROM articles", err => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+
+    res.json({
+      deleted: true,
+      message: "All articles deleted successfully"
+    });
+  });
+});
 
 
 app.listen(4000, () =>
