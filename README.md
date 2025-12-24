@@ -50,55 +50,54 @@ Available endpoints:
 - PUT /api/articles/:id  
 - DELETE /api/articles  
 
-To run the backend:
-
-```
-cd phase1-node
-npm install
-npm start
-The backend runs at http://localhost:4000.
-
-To trigger scraping:
-
-GET http://localhost:4000/scrape-init
-
-AI Enrichment Worker (Phase 2)
-The AI worker fetches articles from the backend, searches for related content using Google Search, scrapes reference articles, enriches the original content using an LLM, and publishes the updated articles back to the backend.
-
-The enrichment process combines original content with contextual reference material, uses structured prompts, applies rate limiting, avoids duplicate processing, and updates only unprocessed articles to ensure predictable execution and controlled API usage.
-
-Environment variables required (create a .env file inside phase2-node):
-
-env
-NODE1_BASE_URL=http://localhost:4000
-SERP_API_KEY=your_serpapi_key
-GROQ_API_KEY=your_groq_key
-GROQ_API_KEY1=optional_secondary_key
-To run the AI worker:
+### To run the backend:
 
 
-cd phase2-node
-npm install
-npm start
-The worker runs at http://localhost:5000.
+- cd phase1-node
+- npm install
+- npm start
+- The backend runs at http://localhost:4000.
+
+### To trigger scraping:
+
+- GET http://localhost:4000/scrape-init
+
+## AI Enrichment Worker (Phase 2)
+- The AI worker fetches articles from the backend, searches for related content using Google Search, scrapes reference articles, enriches the original content using an LLM, and publishes the updated articles back to the backend.
+
+- The enrichment process combines original content with contextual reference material, uses structured prompts, applies rate limiting, avoids duplicate processing, and updates only unprocessed articles to ensure predictable execution and controlled API usage.
+
+### Environment variables required (create a .env file inside phase2-node):
+
+### env
+- NODE1_BASE_URL=http://localhost:4000
+- SERP_API_KEY=your_serpapi_key
+- GROQ_API_KEY=your_groq_key
+- GROQ_API_KEY1=optional_secondary_key
+### To run the AI worker:
+
+
+- cd phase2-node
+- npm install
+- npm start
+-  The worker runs at http://localhost:5000.
 
 To trigger AI enrichment:
 
-GET http://localhost:5000/scrape-enrich-organize
+### GET http://localhost:5000/scrape-enrich-organize
 
-React Frontend (Phase 3)
-The frontend displays AI-updated articles and provides an Admin panel to control the pipeline.
+## React Frontend (Phase 3)
+- The frontend displays AI-updated articles and provides an Admin panel to control the pipeline.
 
 
-To run the frontend:
+### To run the frontend:
 
-bash
-Copy code
-cd frontend
-npm install
-npm run dev
-The frontend runs at http://localhost:5173.
-```
+
+- cd frontend
+- npm install
+- npm run dev
+- The frontend runs at http://localhost:5173.
+
 
 #  Recommended Local Setup Order
 
