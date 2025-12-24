@@ -48,7 +48,7 @@ app.get("/scrape-init", async (req, res) => {
 
 // GET all articles
 app.get("/api/articles", (req, res) => {
-    console.log("okok11")
+    //console.log("Read")
   db.all("SELECT * FROM articles", [], (err, rows) => {
     res.json(rows);
   });
@@ -65,9 +65,9 @@ app.get("/api/articles/:id", (req, res) => {
 
 // CREATE article
 app.post("/api/articles", (req, res) => {
-    console.log("okok111")
+
   const { title, content, source_url } = req.body;
-  console.log("okok1")
+  
   db.run(
     `INSERT INTO articles (title, content, source_url) VALUES (?, ?, ?)`,
     [title, content, source_url],
@@ -80,7 +80,7 @@ app.post("/api/articles", (req, res) => {
 // UPDATE article
 app.put("/api/articles/:id", (req, res) => {
   const { title, content, is_updated } = req.body;
-  console.log("okok")
+  
   db.run(
     `UPDATE articles SET title=?, content=?, is_updated=? WHERE id=?`,
     [title, content, is_updated, req.params.id],
@@ -91,7 +91,7 @@ app.put("/api/articles/:id", (req, res) => {
 
 // DELETE article
 app.delete("/api/articles/:id", (req, res) => {
-    console.log("okokdd")
+   // console.log("okokdd")
   db.run(
     "DELETE FROM articles WHERE id=?",
     [req.params.id],
@@ -133,7 +133,7 @@ app.post("/api/articles/replace-all", (req, res) => {
 });
 // DELETE ALL articles
 app.delete("/api/articles", (req, res) => {
-  console.log("Deleting all articles");
+ // console.log("Deleting all articles");
 
   db.run("DELETE FROM articles", err => {
     if (err) {

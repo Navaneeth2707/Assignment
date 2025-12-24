@@ -1,133 +1,135 @@
-🚀 Features
+# Phase 1 – Article Scraping & CRUD API
+BeyondChats Assignment
 
-✅ Scrapes last 5 oldest blog articles from BeyondChats
+## Objective
+- Scrape the 5 oldest articles from the BeyondChats blog
+- Store articles in a database
+- Provide CRUD APIs to manage articles
 
-✅ Cleans and normalizes scraped text
+## Tech Stack
+- Backend: Node.js + Express
+- Database: SQLite
+- Scraping: Axios + Cheerio
+- API: REST (JSON)
 
-✅ Stores data in SQLite
+Note:
+The assignment mentions Laravel, but Node.js was used to reduce context switching.
+The same structure can be implemented in Laravel if required.
 
-✅ RESTful CRUD APIs
+## Project Structure
+phase1-node/
+- server.js
+- scraper.js
+- db.js
+- articles.db
+- package.json
+- README.md
 
-✅ One-click refresh scrape endpoint
+## Scraping Source
+https://beyondchats.com/blogs
 
-✅ Batch replace API
+## Scraping Logic
+1. Fetch the blog page
+2. Detect pagination and find the last page
+3. Traverse backwards to get the oldest articles
+4. Scrape exactly 5 articles
+5. Extract title and full content
 
-✅ CORS enabled (frontend ready)
+## Database Schema
+articles
+id INTEGER PRIMARY KEY
+title TEXT
+content TEXT
+source_url TEXT
+is_updated INTEGER DEFAULT 0
+created_at DATETIME
 
-🛠 Tech Stack
-
-Node.js
-
-Express.js
-
-SQLite3
-
-Axios (HTTP requests)
-
-Cheerio (HTML parsing)
-
-CORS
-
-📂 Project Structure
-.
-├── db.js            # SQLite DB initialization
-├── scraper.js       # Blog scraping logic
-├── server.js        # Express server + APIs
-├── articles.db      # SQLite database (auto-created)
-├── package.json
-└── README.md
-
-🧱 Database Schema
-
-Table: articles
-
-Column	Type	Description
-id	INTEGER	Primary key
-title	TEXT	Article title
-content	TEXT	Article content
-source_url	TEXT	Original blog URL
-is_updated	INTEGER	0 = false, 1 = true
-created_at	DATETIME	Auto timestamp
-📦 Installation
-git clone https://github.com/your-username/beyondchats-scraper.git
-cd beyondchats-scraper
-npm install
-
-▶️ Run the Server
-node server.js
-
-
-Server will start at:
-
-http://localhost:4000
-
-🔄 Scrape & Initialize Data
-Scrape oldest 5 blogs and refresh DB
+## Scrape Initialization API
 GET /scrape-init
 
+Deletes old articles and inserts fresh oldest articles.
 
-What it does:
-
-Deletes existing articles
-
-Scrapes oldest 5 blog posts
-
-Inserts fresh data
-
-Response
-
+Response:
 {
   "message": "Old articles deleted. Fresh articles inserted.",
   "count": 5
 }
 
-📡 API Endpoints
-➤ Get All Articles
-GET /api/articles
+## API Endpoints
 
-➤ Get Article by ID
-GET /api/articles/:id
+GET /api/articles  
+GET /api/articles/:id  
 
-➤ Create Article
 POST /api/articles
-
-
-Body
-
 {
   "title": "Sample Title",
-  "content": "Sample Content",
+  "content": "Article body",
   "source_url": "https://example.com"
 }
 
-➤ Update Article
 PUT /api/articles/:id
-
-
-Body
-
 {
   "title": "Updated Title",
-  "content": "Updated Content",
+  "content": "Updated content",
   "is_updated": 1
 }
 
-➤ Delete Article
-DELETE /api/articles/:id
+DELETE /api/articles/:id  
+DELETE /api/articles  
 
-➤ Replace All Articles (Batch)
 POST /api/articles/replace-all
-
-
-Body
-
 {
   "articles": [
     {
-      "title": "Title 1",
-      "content": "Content 1",
-      "source_url": "https://example.com",
-      "is_updated": true
+      "title": "Title",
+      "content": "Body",
+      "source_url": "URL",
+      "is_updated": false
     }
   ]
 }
+
+## Local Setup
+Node.js 18+
+
+npm install  
+npm start  
+
+Server runs at:
+http://localhost:4000
+
+## Design Decisions
+- Node.js used instead of Laravel for faster development
+- SQLite for simple local setup
+- Manual scrape trigger
+- No authentication
+
+## Limitations
+- No pagination
+- No validation
+- No authentication
+- Scraper depends on current site structure
+
+## Phase 1 Status
+Scraping completed  
+Database working  
+CRUD APIs ready  
+Phase 2 ready
+
+
+NOTE:
+## ⚠️ Technology Deviation Note
+
+> **Important**
+
+> The original assignment specifies a **Laravel-based backend**.
+
+> Due to time constraints and to avoid context switching between multiple backend frameworks, the backend APIs were implemented using **Node.js (Express)** instead.
+
+> This decision allowed me to:
+
+> - Reuse scraping logic and shared utilities  
+> - Maintain a single JavaScript runtime across the system  
+> - Focus more on the core data pipeline, LLM integration, and overall system design  
+
+> The **API structure, data models, and responsibilities** remain equivalent to a Laravel implementation, and the same architecture can be **directly translated to Laravel controllers and Eloquent models** if required.
